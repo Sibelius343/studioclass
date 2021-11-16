@@ -1,0 +1,80 @@
+import PostList from "./components/PostList";
+import Post from "./components/Post";
+import usePosts from "./hooks/usePosts";
+import CreatePost from "./components/CreatePost";
+import useUserQuery from "./hooks/useUserQuery";
+import { useApolloClient } from '@apollo/client';
+
+import { Switch, Route, useHistory } from 'react-router-dom';
+import Login from "./components/Login";
+import UserInfo from "./components/UserInfo";
+import CreateUser from "./components/CreateUser";
+import Error from "./components/Error";
+import useMySubscriptions from "./hooks/useMySubscriptions";
+import ErrorContext from "./contexts/ErrorContext";
+import useError from "./hooks/useError";
+import NavBar from "./components/NavBar";
+import theme from "./theme";
+
+// minHeight of 100vh eliminates white space at bottom of page for pages
+// that don't fill all the vertical space by themselves
+const styles = {
+  appContainer: {
+    backgroundColor: theme.colors.background,
+    minHeight: '100vh'
+  }
+}
+
+const App = () => {
+  const [error, setError] = useError();
+  const { posts } = usePosts(setError);
+  const { userData } = useUserQuery(setError);
+  const client = useApolloClient();
+  const history = useHistory();
+
+  useMySubscriptions(setError);
+
+  if (!userData) return null;
+  
+  const user = userData.getUser;
+
+  const logout = () => {
+    localStorage.removeItem('masterclass-user-token');
+    client.resetStore();
+    history.push('/');
+  }
+
+  return (
+    <div style={styles.appContainer}>
+      <Error error={error} />
+      <NavBar user={user} handleLogout={logout} />
+      <ErrorContext.Provider value={{ error, setError }}>
+        <Switch>
+          <Route exact path='/'>
+            <PostList posts={posts} />
+          </Route>
+          <Route path='/post/:id'>
+            <Post />
+          </Route>
+          <Route path='/createPost'>
+            <CreatePost />
+          </Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route exact path='/user'>
+            <UserInfo />
+          </Route>
+          <Route path='/user/:id'>
+            <UserInfo />
+          </Route>  
+          <Route path='/createUser'>
+            <CreateUser />
+          </Route>
+        </Switch>
+      </ErrorContext.Provider>
+    </div>
+  )
+}
+
+export default App;
