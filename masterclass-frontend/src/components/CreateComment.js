@@ -9,7 +9,7 @@ import theme from '../theme';
 const styles = {
   submitButton: {
     backgroundColor: theme.colors.primary,
-    ":hover": { backgroundColor: theme.colors.primaryDark },
+    ":hover": { backgroundColor: theme.colors.primaryAlt },
     color: 'white',
     alignSelf: 'start'
   },

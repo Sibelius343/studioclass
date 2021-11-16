@@ -17,7 +17,8 @@ const styles = {
     paddingRight: 1,
     paddingLeft: 3,
     marginTop: 1,
-    marginBottom: 1
+    marginBottom: 1,
+    backgroundColor: theme.colors.cardAlt
   },
   playerDetailsContainer: {
     diplay: 'flex',
@@ -31,7 +32,7 @@ const styles = {
     height: 10,
     borderRadius: 5,
     flex: 4,
-    backgroundColor: '#e4e4e4',
+    backgroundColor: theme.colors.card,
     [`& .${linearProgressClasses.bar}`]: {
       backgroundColor: theme.colors.primary,
       borderRadius: 5
@@ -51,7 +52,7 @@ const styles = {
     height: 80,
     borderRadius: '50%',
     backgroundColor: theme.colors.primary,
-    ":hover": { backgroundColor: theme.colors.primaryDark }
+    ":hover": { backgroundColor: theme.colors.primaryAlt }
   },
   replayButton: {
     minWidth: 30,
@@ -59,7 +60,7 @@ const styles = {
     height: 40,
     borderRadius: '50%',
     backgroundColor: theme.colors.secondary,
-    ":hover": { backgroundColor: theme.colors.secondaryDark },
+    ":hover": { backgroundColor: theme.colors.secondaryAlt },
     alignSelf: 'end'
   }
 }

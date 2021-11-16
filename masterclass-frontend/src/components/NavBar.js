@@ -7,13 +7,15 @@ const styles = {
     cursor: 'pointer',
     mt: 1,
     mr: 2,
+    color: theme.colors.card
   },
   appBar: {
     backgroundColor: theme.colors.primary
   },
   appBarHeader: {
     cursor: 'pointer',
-    mr: 3
+    mr: 3,
+    color: theme.colors.card
   },
   navButtonsContainer: {
     display: 'flex',
@@ -23,7 +25,16 @@ const styles = {
     display: 'flex',
     alignSelf: 'stretch',
     width: 1.5,
-    backgroundColor: theme.colors.primaryDark
+    backgroundColor: theme.colors.primaryAlt
+  },
+  createPostButton: {
+    ml: 2,
+    ":hover": { backgroundColor: theme.colors.primaryAlt },
+    color: theme.colors.card,
+  },
+  button: {
+    ":hover": { backgroundColor: theme.colors.primaryAlt },
+    color: theme.colors.card,
   }
 }
 
@@ -48,7 +59,7 @@ const NavBar = ({ user, handleLogout }) => {
               color='inherit'
               component={Link}
               to='/createPost'
-              sx={{ ml: 2 }}
+              sx={styles.createPostButton}
               >
                 Create Post
               </Button>
@@ -66,6 +77,7 @@ const NavBar = ({ user, handleLogout }) => {
               variant='outlined'
               color='inherit'
               type='button'
+              sx={styles.button}
               onClick={handleLogout}
             >
               Logout
@@ -73,12 +85,26 @@ const NavBar = ({ user, handleLogout }) => {
           </div>
           : <div style={styles.navButtonsContainer}>
               <span style={{ flexGrow: 1 }}></span>
-              <Button color='inherit' component={Link} to='/login'>Login</Button>
-              <Button color='inherit' component={Link} to='/createUser'>Sign up</Button>
+              <Button
+                color='inherit'
+                component={Link}
+                to='/login'
+                sx={styles.button}
+              >
+                Login
+              </Button>
+              <Button
+                color='inherit'
+                component={Link}
+                to='/createUser'
+                sx={styles.button}
+              >
+                Sign up
+              </Button>
           </div>}
         </Toolbar>
       </AppBar>
-      <Toolbar sx={{ mb: 1 }} />
+      <Toolbar />
     </Box>
   )
 }

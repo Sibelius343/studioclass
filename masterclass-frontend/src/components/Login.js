@@ -16,7 +16,8 @@ const styles = {
   formContainer: {
     maxWidth: 800,
     flexBasis: '100%',
-    borderRadius: 5
+    borderRadius: 5,
+    backgroundColor: theme.colors.card
   },
   form: {
     display: 'flex',
@@ -25,7 +26,7 @@ const styles = {
   },
   submitButton: {
     backgroundColor: theme.colors.primary,
-    ":hover": { backgroundColor: theme.colors.primaryDark },
+    ":hover": { backgroundColor: theme.colors.primaryAlt },
     color: 'white',
     alignSelf: 'start'
   },

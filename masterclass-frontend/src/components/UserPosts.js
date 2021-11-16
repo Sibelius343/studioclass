@@ -1,10 +1,12 @@
 import { TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Card, Typography } from '@mui/material';
 import UserPost from './UserPost';
+import theme from '../theme';
 
 const styles = {
   commentList: {
     borderRadius: '5px 5px 20px 20px',
-    maxWidth: 798
+    maxWidth: 798,
+    backgroundColor: theme.colors.card
   }
 }
 

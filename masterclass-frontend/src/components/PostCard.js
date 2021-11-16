@@ -7,12 +7,14 @@ import AudioPlayer from './AudioPlayer';
 const styles = {
   card: {
     flexWrap: 'wrap',
-    borderRadius: '20px 20px 5px 5px'
+    borderRadius: '20px 20px 5px 5px',
+    backgroundColor: theme.colors.card
   },
   listCard: {
     flexWrap: 'wrap',
     cursor: 'pointer',
-    borderRadius: 5
+    borderRadius: 5,
+    backgroundColor: theme.colors.card
   },
   cardContent: {
     display: 'flex',

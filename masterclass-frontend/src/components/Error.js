@@ -1,24 +1,27 @@
-const style = {
+import { Collapse, Alert, Box } from '@mui/material';
+
+const styles = {
+  container: {
+    width: '100%'
+  },
   error: {
-    color: 'red',
-    background: 'lightgrey',
-    fontSize: 20,
-    borderStyle: 'solid',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10
+    justifyContent: 'center'
   }
 }
 
 const Error = ({ error }) => {
-  if (!error) {
-    return null;
-  }
-
   return (
-    <div style={style.error}>
-      {error}
-    </div>
+    <Box sx={styles.container}>
+      <Collapse in={error}>
+        <Alert
+          severity='error'
+          variant='filled'
+          sx={styles.error}
+        >
+          {error}
+        </Alert>
+      </Collapse>
+    </Box>
   )
 }
 

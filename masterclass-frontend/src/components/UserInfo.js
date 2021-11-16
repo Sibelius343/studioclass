@@ -21,7 +21,8 @@ const styles = {
     marginBottom: 1.5
   },
   card: {
-    borderRadius: '20px 20px 5px 5px'
+    borderRadius: '20px 20px 5px 5px',
+    backgroundColor: theme.colors.card
   },
   divider: {
     height: 10

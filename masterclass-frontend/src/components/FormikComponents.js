@@ -1,8 +1,9 @@
 import { useField } from 'formik';
-import Text from './Text';
 import TextInput from './TextInput';
 import TagSelect from './TagSelect';
 import TagSelectOrCreate from './TagSelectOrCreate';
+import { Typography } from '@mui/material';
+import theme from '../theme';
 
 export const FormikTextInput = (props) => {
   const [field, meta] = useField(props);
@@ -11,7 +12,7 @@ export const FormikTextInput = (props) => {
   return (
     <div>
       <TextInput {...field} {...props} />
-      {showError && <Text>{meta.error}</Text>}
+      {showError && <Typography variant='body2' sx={{ color: theme.colors.error}}>{meta.error}</Typography>}
     </div>
   );
 };
@@ -27,7 +28,7 @@ export const FormikTagSelectOrCreate = (props) => {
   return (
     <div>
       <TagSelectOrCreate {...field} {...props} onChange={onChange} />
-      {showError && <Text>{meta.error}</Text>}
+      {showError && <Typography variant='body2' sx={{ color: theme.colors.error}}>{meta.error}</Typography>}
     </div>
   )
 }
@@ -43,7 +44,7 @@ export const FormikTagSelect = (props) => {
   return (
     <div>
       <TagSelect {...field} {...props} onChange={onChange} />
-      {showError && <Text>{meta.error}</Text>}
+      {showError && <Typography variant='body2' sx={{ color: theme.colors.error}}>{meta.error}</Typography>}
     </div>
   )
 }

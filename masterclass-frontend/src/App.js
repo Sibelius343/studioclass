@@ -12,6 +12,7 @@ import CreateUser from "./components/CreateUser";
 import Error from "./components/Error";
 import useMySubscriptions from "./hooks/useMySubscriptions";
 import ErrorContext from "./contexts/ErrorContext";
+import UserContext from "./contexts/UserContext";
 import useError from "./hooks/useError";
 import NavBar from "./components/NavBar";
 import theme from "./theme";
@@ -22,6 +23,9 @@ const styles = {
   appContainer: {
     backgroundColor: theme.colors.background,
     minHeight: '100vh'
+  },
+  divider: {
+    height: 9
   }
 }
 
@@ -46,32 +50,35 @@ const App = () => {
 
   return (
     <div style={styles.appContainer}>
-      <Error error={error} />
       <NavBar user={user} handleLogout={logout} />
+      <Error error={error} />
+      <div style={styles.divider} />
       <ErrorContext.Provider value={{ error, setError }}>
-        <Switch>
-          <Route exact path='/'>
-            <PostList posts={posts} />
-          </Route>
-          <Route path='/post/:id'>
-            <Post />
-          </Route>
-          <Route path='/createPost'>
-            <CreatePost />
-          </Route>
-          <Route path='/login'>
-            <Login />
-          </Route>
-          <Route exact path='/user'>
-            <UserInfo />
-          </Route>
-          <Route path='/user/:id'>
-            <UserInfo />
-          </Route>  
-          <Route path='/createUser'>
-            <CreateUser />
-          </Route>
-        </Switch>
+        <UserContext.Provider value={{ user }}>
+          <Switch>
+            <Route exact path='/'>
+              <PostList posts={posts} />
+            </Route>
+            <Route path='/post/:id'>
+              <Post />
+            </Route>
+            <Route path='/createPost'>
+              <CreatePost />
+            </Route>
+            <Route path='/login'>
+              <Login />
+            </Route>
+            <Route exact path='/user'>
+              <UserInfo />
+            </Route>
+            <Route path='/user/:id'>
+              <UserInfo />
+            </Route>  
+            <Route path='/createUser'>
+              <CreateUser />
+            </Route>
+          </Switch>
+        </UserContext.Provider>
       </ErrorContext.Provider>
     </div>
   )

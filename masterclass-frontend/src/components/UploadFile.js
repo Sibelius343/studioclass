@@ -7,7 +7,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: theme.colors.cardAlt,
     height: 100,
     cursor: 'pointer',
     borderStyle: 'dashed',
@@ -81,7 +81,7 @@ const UploadFile = ({ onDrop, files, uploadError, onDelete }) => {
       <aside style={styles.previewContainer}>
         {previews}
       </aside>
-      {uploadError && <Typography variant='body2'>{uploadError}</Typography>}
+      {uploadError && <Typography variant='body2' sx={{ color: theme.colors.error}}>{uploadError}</Typography>}
     </section>
   );
 };
