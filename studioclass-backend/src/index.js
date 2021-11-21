@@ -10,6 +10,8 @@ import mongoose from 'mongoose';
 import schema from './graphql/schema';
 import config from './utils/config';
 import User from './models/user';
+import audioBucket from './utils/gCloud';
+import { get } from 'http';
 
 require('./models/post');
 require('./models/comment');
@@ -28,6 +30,32 @@ const startApolloServer = async () => {
   const app = express();
   app.use(graphqlUploadExpress());
   app.use(express.static('build'));
+
+  app.get('/post/audio/:filename', (req, res) => {
+    const filename = req.params.filename;
+    // const cloudFile = audioBucket.file(filename);
+
+    get(`http://${config.GCLOUD_LB_IP}/${filename}`, r => {
+      console.log(r.headers);
+      res.writeHead(206, {
+        'Accept-Ranges': 'bytes',
+        'Content-Range': `bytes 0-${parseInt(r.headers['content-length']) - 1}/${r.headers['content-length']}`,
+        'Content-Length': r.headers['content-length'],
+        'Content-Type': r.headers['content-type'],
+        'Connection': 'keep-alive'
+      })
+      r.pipe(res);
+    })
+
+    // res.header('Accept-Ranges', 'bytes');
+    // res.header('Connection', 'keep-alive');
+    // cloudFile.createReadStream()
+    //   .on('response', (r) => {
+    //     res.header('Content-Length', r.headers['content-length']);
+    //     res.header('content-type', r.headers['content-type'])
+    //     })
+    //   .pipe(res);
+  })
   
   const httpServer = http.createServer(app);
 

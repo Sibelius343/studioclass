@@ -1,7 +1,6 @@
 import { gql, AuthenticationError } from 'apollo-server-express';
 import { GraphQLUpload } from 'graphql-upload';
-import { Storage } from '@google-cloud/storage';
-import { join } from 'path';
+import audioBucket from '../../utils/gCloud';
 import Post from '../../models/post';
 import config from '../../utils/config';
 import pubsub from '../../utils/pubsub';
@@ -30,18 +29,6 @@ export const typeDefs = gql`
   }
 `
 
-const gc = new Storage({
-  keyFilename: join(__dirname, '../../../fleet-petal-329519-cb1e7f8f25e8.json'),
-  projectId: 'fleet-petal-329519'
-});
-
-// const gc = new Storage({
-//   credentials: JSON.parse(process.env.GCS_KEYFILE),
-//   projectId: 'fleet-petal-329519'
-// });
-
-const audioBucket = gc.bucket('masterclass_audio_assets');
-
 export const resolvers = {
   Upload: GraphQLUpload,
 
@@ -63,7 +50,7 @@ export const resolvers = {
             .on('finish', resolve)
         );
 
-        const url = `http://${config.GCLOUD_LB_IP}/${filename}`;
+        const url = `audio/${filename}`;
         return { title: filename, audioFileUri: url };
       }));
 
