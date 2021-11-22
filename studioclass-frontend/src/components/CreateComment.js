@@ -75,7 +75,7 @@ const CreateComment = ({ postID }) => {
             fullWidth
             label='Write comment here...'
           />
-          <Button variant='contained' type='submit' sx={styles.submitButton}>submit</Button>
+          <Button variant='contained' type='submit' sx={styles.submitButton}>Comment</Button>
         </Form>
       </Formik>
     </div>

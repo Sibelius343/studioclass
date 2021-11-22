@@ -19,11 +19,11 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
-// ws://localhost:4000/subscriptions
-// wss://studioclass.herokuapp.com/subscriptions
-const uploadLink = createUploadLink({ uri: '/'});
+// ws://localhost:4000/graphql/subscriptions
+// wss://studioclass.herokuapp.com/graphql/subscriptions
+const uploadLink = createUploadLink({ uri: '/graphql/'});
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/subscriptions`,
+  uri: `ws://localhost:4000/graphql/subscriptions`,
   options: {
     reconnect: true
   }

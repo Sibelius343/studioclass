@@ -10,8 +10,7 @@ import mongoose from 'mongoose';
 import schema from './graphql/schema';
 import config from './utils/config';
 import User from './models/user';
-import audioBucket from './utils/gCloud';
-import { get } from 'http';
+import { join } from 'path';
 
 require('./models/post');
 require('./models/comment');
@@ -35,7 +34,7 @@ const startApolloServer = async () => {
     const filename = req.params.filename;
     // const cloudFile = audioBucket.file(filename);
 
-    get(`http://${config.GCLOUD_LB_IP}/${filename}`, r => {
+    http.get(`http://${config.GCLOUD_LB_IP}/${filename}`, r => {
       console.log(r.headers);
       res.writeHead(206, {
         'Accept-Ranges': 'bytes',
@@ -46,16 +45,11 @@ const startApolloServer = async () => {
       })
       r.pipe(res);
     })
+  });
 
-    // res.header('Accept-Ranges', 'bytes');
-    // res.header('Connection', 'keep-alive');
-    // cloudFile.createReadStream()
-    //   .on('response', (r) => {
-    //     res.header('Content-Length', r.headers['content-length']);
-    //     res.header('content-type', r.headers['content-type'])
-    //     })
-    //   .pipe(res);
-  })
+  app.get('/*', (_req, res) => {
+    res.sendFile('index.html', { root: join(__dirname, '../build/')});
+  }); 
   
   const httpServer = http.createServer(app);
 
@@ -88,7 +82,7 @@ const startApolloServer = async () => {
   
   apolloServer.applyMiddleware({
     app,
-    path: '/'
+    path: '/graphql/'
   });
 
   const subscriptionServer = SubscriptionServer.create(
