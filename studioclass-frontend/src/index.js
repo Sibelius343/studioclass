@@ -19,11 +19,13 @@ const authLink = setContext((_, { headers }) => {
   }
 });
 
-// ws://localhost:4000/graphql/subscriptions
-// wss://studioclass.herokuapp.com/graphql/subscriptions
+const wsUri = process.env.NODE_ENV === 'production'
+  ? 'wss://studioclass.herokuapp.com/graphql/subscriptions'
+  : 'ws://localhost:4000/graphql/subscriptions'
+
 const uploadLink = createUploadLink({ uri: '/graphql/'});
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/graphql/subscriptions`,
+  uri: wsUri,
   options: {
     reconnect: true
   }

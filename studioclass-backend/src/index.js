@@ -32,10 +32,8 @@ const startApolloServer = async () => {
 
   app.get('/post/audio/:filename', (req, res) => {
     const filename = req.params.filename;
-    // const cloudFile = audioBucket.file(filename);
 
     http.get(`http://${config.GCLOUD_LB_IP}/${filename}`, r => {
-      console.log(r.headers);
       res.writeHead(206, {
         'Accept-Ranges': 'bytes',
         'Content-Range': `bytes 0-${parseInt(r.headers['content-length']) - 1}/${r.headers['content-length']}`,
