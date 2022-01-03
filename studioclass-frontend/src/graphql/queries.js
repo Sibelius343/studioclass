@@ -1,20 +1,40 @@
 import { gql } from '@apollo/client';
 
 export const GET_POSTS = gql`
-  query {
-    posts {
-      id
-      title
-      user {
-        id
-        username
+  query getPosts(
+    $orderBy: OrderEnum = DATE,
+    $orderDirection: Direction = ASC,
+    $cursor: String,
+    $limit: Int = 10
+  ) {
+    posts(
+      orderBy: $orderBy,
+      orderDirection: $orderDirection,
+      cursor: $cursor,
+      limit: $limit
+    ) {
+      totalCount
+      pageInfo {
+        hasNextPage
+        endCursor
       }
-      dateCreatedAt
-      tags {
-        id
-        content
-        color
-      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          user {
+            id
+            username
+          }
+          dateCreatedAt
+          tags {
+            id
+            content
+            color
+          }
+        }
+      } 
     }
   }
 `

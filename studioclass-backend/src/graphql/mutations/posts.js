@@ -2,7 +2,6 @@ import { gql, AuthenticationError } from 'apollo-server-express';
 import { GraphQLUpload } from 'graphql-upload';
 import audioBucket from '../../utils/gCloud';
 import Post from '../../models/post';
-import config from '../../utils/config';
 import pubsub from '../../utils/pubsub';
 
 export const typeDefs = gql`
@@ -25,7 +24,7 @@ export const typeDefs = gql`
   }
 
   type Subscription {
-    postAdded: Post!
+    postAdded: PostEdge!
   }
 `
 
@@ -70,7 +69,13 @@ export const resolvers = {
       await newPost
         .populate([{ path: 'user', select: 'id username'}, { path: 'tags' }]);
 
-      pubsub.publish('POST_ADDED', { postAdded: newPost });
+      console.log(newPost);
+      pubsub.publish('POST_ADDED', {
+        postAdded: {
+          cursor: id,
+          node: newPost
+        }
+      });
 
       return newPost;
     }

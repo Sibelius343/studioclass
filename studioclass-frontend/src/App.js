@@ -1,6 +1,5 @@
 import PostList from "./components/PostList";
 import Post from "./components/Post";
-import usePosts from "./hooks/usePosts";
 import CreatePost from "./components/CreatePost";
 import useUserQuery from "./hooks/useUserQuery";
 import { useApolloClient } from '@apollo/client';
@@ -31,7 +30,6 @@ const styles = {
 
 const App = () => {
   const [error, setError] = useError();
-  const { posts } = usePosts(setError);
   const { userData } = useUserQuery(setError);
   const client = useApolloClient();
   const history = useHistory();
@@ -57,7 +55,7 @@ const App = () => {
         <UserContext.Provider value={{ user }}>
           <Switch>
             <Route exact path='/'>
-              <PostList posts={posts} />
+              <PostList />
             </Route>
             <Route path='/post/:id'>
               <Post />

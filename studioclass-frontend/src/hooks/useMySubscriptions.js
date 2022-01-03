@@ -6,15 +6,24 @@ const useMySubscriptions = (setError) => {
   const client = useApolloClient();
 
   const updatePostCache = (postAdded) => {
-    const included = (store, post) => store.map(p => p.id).includes(post.id);
+    const included = (store, post) => store.map(p => p?.node.id).includes(post?.node.id);
     
     try {
       const allPostData = client.readQuery({ query: GET_POSTS });
-
-      if (!included(allPostData.posts, postAdded)) {
+      console.log(allPostData);
+      console.log(postAdded);
+      if (!included(allPostData.posts?.edges, postAdded)) {
+        console.log('here');
         client.writeQuery({
           query: GET_POSTS,
-          data: { posts: allPostData.posts.concat(postAdded) }
+          data: {
+            posts: {
+              __typename: 'Subscription',
+              pageInfo: { ...allPostData.posts.pageInfo },
+              edges: [postAdded, ...allPostData.posts.edges],
+              totalCount: allPostData.posts.totalCount + 1
+            },
+           }
         })
       }
     } catch (e) {

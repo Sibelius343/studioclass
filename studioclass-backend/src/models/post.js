@@ -22,7 +22,8 @@ const postSchema = new mongoose.Schema({
   description: String,
   dateCreatedAt: {
     type: Date,
-    required: true
+    required: true,
+    index: true
   },
   comments: [{
     type: mongoose.Schema.Types.ObjectId,

@@ -10,9 +10,10 @@ const styles = {
 }
 
 const Error = ({ error }) => {
+  console.log(error);
   return (
     <Box sx={styles.container}>
-      <Collapse in={error}>
+      <Collapse in={!!error}>
         <Alert
           severity='error'
           variant='filled'

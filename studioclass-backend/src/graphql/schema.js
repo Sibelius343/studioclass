@@ -10,6 +10,9 @@ import Post from './types/Post';
 import User from './types/User';
 import Tag from "./types/Tag";
 import AudioTrack from "./types/AudioTrack";
+import PostConnection from "./types/PostConnection";
+import CommentConnection from "./types/CommentConnection";
+import PageInfo from "./types/PageInfo";
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { merge } from 'lodash';
 import dateScalar from "./scalars/Date";
@@ -26,7 +29,10 @@ const typeDefs = [
   Post.typeDefs,
   User.typeDefs,
   Tag.typeDefs,
-  AudioTrack.typeDefs
+  AudioTrack.typeDefs,
+  PostConnection.typeDefs,
+  CommentConnection.typeDefs,
+  PageInfo.typeDefs,
 ];
 
 const resolvers = merge(

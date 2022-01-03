@@ -3,17 +3,20 @@ import { gql } from '@apollo/client';
 export const POST_ADDED = gql`
   subscription {
     postAdded {
-      id
-      title
-      user {
+      cursor
+      node {
         id
-        username
-      }
-      dateCreatedAt
-      tags {
-        id
-        content
-        color
+        title
+        user {
+          id
+          username
+        }
+        dateCreatedAt
+        tags {
+          id
+          content
+          color
+        }
       }
     }
   }

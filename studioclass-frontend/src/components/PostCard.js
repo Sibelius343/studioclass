@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import Tag from './Tag';
@@ -36,7 +37,7 @@ const styles = {
   }
 }
 
-const PostCard = ({ item, onCardClick, expanded }) => {
+const PostCard = React.memo(({ item, onCardClick, expanded }) => {
   const history = useHistory();
 
   const clickUser = (e) => {
@@ -46,6 +47,8 @@ const PostCard = ({ item, onCardClick, expanded }) => {
 
     history.push(`/user/${item.user.id}`);
   }
+
+  console.log('rendered');
 
   return (
     <Card
@@ -99,6 +102,6 @@ const PostCard = ({ item, onCardClick, expanded }) => {
       </CardContent>
     </Card>
   )
-}
+})
 
 export default PostCard;

@@ -32,7 +32,6 @@ const startApolloServer = async () => {
 
   app.get('/post/audio/:filename', (req, res) => {
     const filename = req.params.filename;
-    // const cloudFile = audioBucket.file(filename);
 
     http.get(`http://${config.GCLOUD_LB_IP}/${filename}`, r => {
       console.log(r.headers);
@@ -47,9 +46,11 @@ const startApolloServer = async () => {
     })
   });
 
-  app.get('/*', (_req, res) => {
-    res.sendFile('index.html', { root: join(__dirname, '../build/')});
-  }); 
+  if (process.env.NODE_ENV !== 'development') {
+    app.get('/*', (_req, res) => {
+      res.sendFile('index.html', { root: join(__dirname, '../build/')});
+    }); 
+  }
   
   const httpServer = http.createServer(app);
 

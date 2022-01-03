@@ -5,7 +5,8 @@ const MONGODB_URI = process.env.NODE_ENV === 'test'
     : process.env.MONGODB_URI
 const PORT = process.env.PORT
 const GCLOUD_LB_IP = process.env.GCLOUD_LB_IP
+const GCS_PROJECT_ID = process.env.GCS_PROJECT_ID
 
 module.exports = {
-    MONGODB_URI, PORT, GCLOUD_LB_IP
+    MONGODB_URI, PORT, GCLOUD_LB_IP, GCS_PROJECT_ID
 }
